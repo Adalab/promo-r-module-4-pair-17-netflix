@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="movieDetail.css">
+    <link rel="stylesheet" href="/movieDetail.css">
     <title>Movie</title>
 </head>
+
 <body>
     <ul>
-        <li className="card">
-            <img className="card__img" src= "<%= image %>" />
-            <h3 className="card__title"><%= title %></h3>
-            <p className="card__description">Género: <%= gender %></p> 
+        <li class="card-ejs">
+            <img class="img-ejs" src="<%= image %>" />
+            <h3 class="title-ejs">
+                <%= name %>
+            </h3>
+            <p class="description-ejs">Género: <%= gender %>
+            </p>
         </li>
     </ul>
-    
+
 </body>
+
 </html>

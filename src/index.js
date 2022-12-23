@@ -1,13 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const dataMovies = require('./data/movies.json');
+/* const dataMovies = require('./data/movies.json'); */
 const dataUsers = require('./data/users.json');
+const Database = require('better-sqlite3');
 
 // create and config server
 const server = express();
 server.use(cors());
 server.use(express.json());
 server.set('view engine', 'ejs');
+const db = new Database('./src/db/database.db', { verbose: console.log});
 
 // init express aplication
 const serverPort = 4000;
@@ -17,11 +19,23 @@ server.listen(serverPort, () => {
 
 // Endpoint
 server.get('/movies', (req, res) => {
-  const response = {
+ /*  const response = {
       success: true,
       movies: dataMovies
   };
   res.json(response);
+ */
+
+  const query = db.prepare('SELECT * FROM movies');
+  const movies = query.all();
+
+ 
+  const response = {
+    success: true,
+    movies: movies
+};
+res.json(response);
+
 });
 
 server.post('/users', (req, res) => {
@@ -33,9 +47,11 @@ server.post('/users', (req, res) => {
 });
 
 server.get('/movie/:movieId', (req, res) => {
-  const foundMovie = dataMovies.find((eachMovie) => eachMovie.id === req.params.movieId);
-  console.log(foundMovie);
-  res.render('movie', foundMovie);
+  const query = db.prepare('SELECT * FROM movies WHERE id = ?');
+  const idmovie = query.get(req.params.movieId);
+ 
+
+  res.render('movie', idmovie);
 });
 
 // Servidores estáticos
