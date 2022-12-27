@@ -50,8 +50,24 @@ server.get('/movie/:movieId', (req, res) => {
   const query = db.prepare('SELECT * FROM movies WHERE id = ?');
   const idmovie = query.get(req.params.movieId);
  
-
   res.render('movie', idmovie);
+});
+
+server.post('POST:/sign-up',(req, res) => {
+  const querySet = db.prepare('SELECT * FROM users WHERE email = ? AND password = ?');
+  const foundUser = querySet.get(req.body.email, req.body.password);
+  console.log(foundUser);
+
+  const queryAdd = db.prepare('INSERT INTO users (email, password) VALUES (?, ?)');
+  const result = queryAdd.run(req.body.email, req.body.password);
+
+  foundUser === undefined ? result : console.log('usuario existente');
+  
+  const response = {
+    "success": true,
+    "userId": "nuevo-id-añadido"
+  }
+  res.json(response);
 });
 
 // Servidores estáticos
@@ -63,4 +79,3 @@ server.use(express.static(staticServerImage));
 
 const staticServerStyles = './src/public-styles'; 
 server.use(express.static(staticServerStyles));
-
