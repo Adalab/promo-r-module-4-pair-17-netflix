@@ -53,7 +53,7 @@ server.get('/movie/:movieId', (req, res) => {
   res.render('movie', idmovie);
 });
 
-server.post('POST:/sign-up',(req, res) => {
+server.post('/sign-up',(req, res) => {
   const querySet = db.prepare('SELECT * FROM users WHERE email = ? AND password = ?');
   const foundUser = querySet.get(req.body.email, req.body.password);
   console.log(foundUser);

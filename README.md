@@ -72,7 +72,7 @@ Por favor marca a continuación los ejericios que hayais terminado:
 
   4.7 Bases de datos I:
 
-- [ ] 1. Pensar qué relación es
+- [x] 1. Pensar qué relación es
 - [ ] 2. Crear una relación N a N
 - [ ] 3. Crear el endpoint en el front
 - [ ] 4. Crear el endpoint en el back
