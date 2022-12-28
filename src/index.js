@@ -17,7 +17,9 @@ server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
-// Endpoint
+// Endpoints
+
+// Endpoint para traer todas las peliculas del servidor 
 server.get('/movies', (req, res) => {
  /*  const response = {
       success: true,
@@ -25,17 +27,14 @@ server.get('/movies', (req, res) => {
   };
   res.json(response);
  */
-
   const query = db.prepare('SELECT * FROM movies');
   const movies = query.all();
 
- 
   const response = {
     success: true,
     movies: movies
-};
-res.json(response);
-
+  };
+  res.json(response);
 });
 
 server.post('/users', (req, res) => {
@@ -46,19 +45,23 @@ server.post('/users', (req, res) => {
   res.json(response);
 });
 
+// Creamos un endpoint para escuchar las peticiones del motor de plantillas. 
 server.get('/movie/:movieId', (req, res) => {
   const query = db.prepare('SELECT * FROM movies WHERE id = ?');
   const idmovie = query.get(req.params.movieId);
- 
+ // pintamos la pelicula encontrada mediante el id
   res.render('movie', idmovie);
 });
 
+// Endpoint de registro de nuevas usuarias. Los datos se envían por body params. 
 server.post('/sign-up',(req, res) => {
   const querySet = db.prepare('SELECT * FROM users WHERE email = ? AND password = ?');
   const foundUser = querySet.get(req.body.email, req.body.password);
   console.log(foundUser);
   let response = {};
   console.log(foundUser);
+
+  // con este concional se comprueba si la usuaria está o no logada (comparando los emails registrados). Si no está, la registra y si no, salta un aviso de "usuaria existente".
   if ( foundUser === undefined ){
     const queryAdd = db.prepare('INSERT INTO users (email, password) VALUES (?, ?)');
     const result = queryAdd.run(req.body.email, req.body.password);

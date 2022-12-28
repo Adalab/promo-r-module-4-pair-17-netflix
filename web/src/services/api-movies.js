@@ -5,7 +5,7 @@ const getMoviesFromApi = ({gender}) => {
   return fetch(`//localhost:4000/movies?gender=${gender}`)
     .then(response => response.json())
     .then((data) => {
-      // CAMBIA EL CONTENIDO DE ESTE THEN PARA GESTIONAR LA RESPUESTA DEL SERVIDOR Y RETORNAR AL COMPONENTE APP LO QUE NECESITA
+      // Aquí retormamos lo que nos vaya a devolver el servidor 
       return data;
     });
 };

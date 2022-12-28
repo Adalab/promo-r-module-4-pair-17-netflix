@@ -2,11 +2,11 @@
 
 const sendLoginToApi = (data) => {
 	console.log("Se están enviando datos al login:", data);
-	// CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
+	// Esta función recibe por parámetros el email y la contraseña de la usuaria. 
 	const bodyParams = data;
   console.log(bodyParams);
 	return fetch("http://localhost:4000/login", {
-   
+		// estos datos ahora se envían por body params. 
 		method: "POST",
 		body: JSON.stringify(bodyParams),
 		headers: {
@@ -22,9 +22,9 @@ const sendLoginToApi = (data) => {
 
 // signup
 
+// Con esta función estamos registrando a nuevas usuarias en nuestra base de datos.
 const sendSingUpToApi = (data) => {
 	console.log("Se están enviando datos al signup:", data);
-	// CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
 	const bodyParams = data;
 	return fetch("http://localhost:4000/sign-up", {
    
